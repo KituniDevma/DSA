@@ -1,24 +1,23 @@
 #include <iostream>
 using namespace std;
-
+  
 // function to heapify the tree
 void heapify(int arr[], int n, int root)
 {
-    // Initializing the children(left, right)
+   // build heapify
+   
+   // Initializing the children(left, right)
     int left = 2*root + 1;
     int right = 2*root +2;
 
     // Getting the maximum.
-    int maximum;
+    int maximum = root;
     // Checking whether the left child is greater than the root.
-    if (left<n && arr[left]>arr[root]){   
+    if (left<n && arr[left]>arr[maximum]){   
         maximum = left;
     }
-    else{
-        maximum = root;
-    }
     // Checking whether the right child is greater than the root.
-    if(right<n && arr[right]>arr[root]){
+    if(right<n && arr[right]>arr[maximum]){
         maximum = right;
     }
 
@@ -28,43 +27,61 @@ void heapify(int arr[], int n, int root)
         heapify(arr, n, maximum);
     }
 }
-
+  
 // implementing heap sort
 void heapSort(int arr[], int n)
 {
-    // Building a max heap.
-    for (int i=n/2-1; i>=0; i--){
+   // build heap
+   for (int i=n/2-1; i>=0; i--){
         heapify(arr, n, i);
     }
-
-    // Sorting the elements.
-    for (int i=n-1; i>=0; i--){
+  
+   // extracting elements from heap one by one
+   for (int i=n-1; i>=0; i--){
         swap (arr[0], arr[i]);
-        heapify(arr, n, 0);
+        heapify(arr, i, 0);
     } 
-
 }
-
+  
 /* print contents of array */
 void displayArray(int arr[], int n)
 {
-   for (int i=0; i<n; i++){
-    cout << arr[i] << " ";
-   }
+   for (int i=0; i<n; ++i)
+   cout << arr[i] << " ";
    cout << "\n";
 }
-
+  
 // main program
-
 int main()
 {
-   int heap_arr[] = {9,-4,3,5,1,0,-6};
+   int heap_arr[] = {4,17,3,12,9,6};
    int n = sizeof(heap_arr)/sizeof(heap_arr[0]);
    cout<<"Input array"<<endl;
    displayArray(heap_arr,n);
-
+  
    heapSort(heap_arr, n);
-
+  
    cout << "Sorted array"<<endl;
    displayArray(heap_arr, n);
+
+   //Getting inputs from the user.
+   int size ;
+   cout << "Enter the size of the array: ";
+   cin >> size;
+   cout <<"\n";
+
+   int arr[size];     // Array.
+   cout << "Enter the array: ";
+   for (int i=0; i<size; i++){
+    cin >> arr[i];
+   }
+
+   cout<<"Input array"<<endl;
+   displayArray(arr,size);
+
+   heapSort(arr,size);
+
+   cout << "Sorted array"<<endl;
+   displayArray(arr, size);
+
 }
